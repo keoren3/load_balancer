@@ -6,7 +6,9 @@ How to start?
 1. Enter the directory 'app'.
 2. run the command: ```docker build -t post_api .``` - Create the image for the docker-compose file.
 3. Go back to the repositories root directory.
-4. run the command: ```docker-compose up -d``` - Run Traefik from image, raise the post_api from the image we created, and configure load balancing.  
+4. run the command: ```docker-compose up -d``` - Run Traefik from image, raise the post_api from the image we created, and configure load balancing.
+5. enter the directory 'app2'.
+6. Run the command 'python3 app.py' (Don't forget to install the requests before ```python3 -m pip install -r requirements.txt``) - This is the exact same application as app, it just uses a different port, this is in order to see 2 parallel POST requests.
 
 **Some data on the load balancer:**  
 In this link: https://doc.traefik.io/traefik/v1.4/benchmarks/  
