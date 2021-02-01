@@ -1,14 +1,14 @@
+import os
 from flask import Flask, jsonify
 from send_parallel import send_to_all_parallel_servers
 
-REGISTER_SERVERS = ['http://0.0.0.0:5000/api/register', 'http://0.0.0.0:3500/api/register']
-CHANGE_PASSWORD_SERVERS = ['http://0.0.0.0:5000/api/change_password', 'http://0.0.0.0:3500/api/change_password']
+REGISTER_SERVERS = os.getenv('SERVERS', None).split(',')
 app = Flask(__name__)
 
 
 @app.route('/register', methods=['POST'])
 def register():
-    return jsonify(send_to_all_parallel_servers(REGISTER_SERVERS)), 201
+    return jsonify(send_to_all_parallel_servers(REGISTER_SERVERS, '/register')), 201
 
 
 @app.route('/api/register', methods=['POST'])
@@ -18,7 +18,7 @@ def api_register():
 
 @app.route('/changePassword', methods=['POST'])
 def change_password():
-    return send_to_all_parallel_servers(CHANGE_PASSWORD_SERVERS), 201
+    return send_to_all_parallel_servers(REGISTER_SERVERS, '/changePassword'), 201
 
 
 @app.route('/api/change_password', methods=['POST'])

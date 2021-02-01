@@ -2,13 +2,19 @@
 A simple load balancer using Traefik.
 
 How to start?
+Run the command ```export SERVERS=<SERVER_LIST>```
+Run the command ```python3 update_servers.py``` - And follow the prints.
+Enter the directory 'app'.
+run the command: ```docker build -t post_api .``` - Create the image for the docker-compose file.
+Go back to the repositories root directory.
+run the command: ```docker-compose up -d``` - Run Traefik from image, raise the post_api from the image we created, and configure load balancing.
 
-1. Enter the directory 'app'.
-2. run the command: ```docker build -t post_api .``` - Create the image for the docker-compose file.
-3. Go back to the repositories root directory.
-4. run the command: ```docker-compose up -d``` - Run Traefik from image, raise the post_api from the image we created, and configure load balancing.
-5. enter the directory 'app2'.
-6. Run the command 'python3 app.py' (Don't forget to install the requests before ```python3 -m pip install -r requirements.txt``) - This is the exact same application as app, it just uses a different port, this is in order to see 2 parallel POST requests.
+Current metrics are created using Prometheus, in order to display the metrics in Traefik Pilot, add this line to the docker-compose.yml file:
+- "--pilot.token=<Token>"
+
+A token can be created here:
+https://pilot.traefik.io/
+
 
 **Some data on the load balancer:**  
 In this link: https://doc.traefik.io/traefik/v1.4/benchmarks/  

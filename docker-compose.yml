@@ -13,6 +13,13 @@ services:
       - "--providers.docker=true"
       - "--providers.file.filename=/dynamic.yaml"
       - "--providers.file.watch=true"
+      - "--metrics.prometheus=true"
+      - "--metrics.prometheus.addEntryPointsLabels=true"
+      - "--metrics.prometheus.addServicesLabels=true"
+      - "--entryPoints.metrics.address=:8082"
+      - "--metrics.prometheus.entryPoint=metrics"
+
+
     ports:
       - "80:80"
       - "8080:8080"
