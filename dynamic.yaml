@@ -11,5 +11,3 @@ http:
     get_rr:
       loadBalancer:
         servers:
-          - url: "http://google.com/"
-          - url: "http://facebook.com/"

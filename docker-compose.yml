@@ -5,7 +5,7 @@ services:
     image: "traefik:v2.4"
     container_name: "traefik"
     command:
-      #- "--log.level=DEBUG"
+      - "--log.level=DEBUG"
       - "--api.insecure=true"
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=true"
@@ -19,7 +19,6 @@ services:
       - "--entryPoints.metrics.address=:8082"
       - "--metrics.prometheus.entryPoint=metrics"
 
-
     ports:
       - "80:80"
       - "8080:8080"
@@ -28,15 +27,6 @@ services:
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
       - "./dynamic.yaml:/dynamic.yaml"
-
-
-  whoami:
-    image: "traefik/whoami"
-    container_name: "simple-service"
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.whoami.rule=Host(`localhost`)"
-      - "traefik.http.routers.whoami.entrypoints=web"
 
 
   flask_app_post:
@@ -49,7 +39,8 @@ services:
       - "traefik.docker.network=traefik-network"
       - "traefik.http.routers.flask_app_post.rule=Method(`POST`)"
       - "traefik.http.services.flask_app_post.loadbalancer.server.port=5000"
-
+    environment:
+      - "SERVERS=<SERVERS>"
 
 networks:
   traefik-network:
