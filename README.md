@@ -2,7 +2,7 @@
 A simple load balancer using Traefik.
 
 How to start?
-Run the command ```export SERVERS=<SERVER_LIST>```
+Run the command ```export SERVERS=<SERVER_LIST>``` - SERVER_LIST = List of servers that need to get the GET and POST requests.
 Run the command ```python3 update_servers.py``` - And follow the prints.
 Enter the directory 'app'.
 run the command: ```docker build -t post_api .``` - Create the image for the docker-compose file.
