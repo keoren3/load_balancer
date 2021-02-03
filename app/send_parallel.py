@@ -17,7 +17,7 @@ def send_thread(server, api, result_queue):
         result = requests.post(link)
     except Exception as e:
         logging.error(f"An exception was raised! continuing. Exception: {e}")
-        result_queue.put("Failed", 500)
+        result_queue.put(("Failed", 500))
         return
     while not result.ok:
         logging.debug(f"Result returned: {result.status_code}")
@@ -28,10 +28,10 @@ def send_thread(server, api, result_queue):
         exponent += 1
         if sleep_time > 1000:
             logging.error(f"Failed running request to server {server}{api}")
-            result_queue.put("Failed", 500)
+            result_queue.put(("Failed", 500))
             return
 
-    result_queue.put(result.text, 201)
+    result_queue.put((result.text, 201))
 
 
 def send_to_all_parallel_servers(servers, api):
